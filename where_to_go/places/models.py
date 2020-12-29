@@ -11,12 +11,12 @@ class Place(models.Model):
         max_length=5000
     )
     lng = models.DecimalField(
-        max_digits=20,
-        decimal_places=16
+        max_digits=17,
+        decimal_places=13
     )
     lat = models.DecimalField(
-        max_digits=20,
-        decimal_places=16
+        max_digits=17,
+        decimal_places=13
     )
 
     def __str__(self):
