@@ -18,11 +18,11 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from . views import index
+from .views import index, get_object_in_json_for_id
 
 urlpatterns = [
     path('', index, name='index'),
+    path('places/<int:id>/', get_object_in_json_for_id),
     path('admin/', admin.site.urls),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
