@@ -1,4 +1,6 @@
 from django.db import models
+from tinymce import models as tinymce_models
+
 
 class Place(models.Model):
     title = models.CharField(
@@ -7,9 +9,10 @@ class Place(models.Model):
     description_short = models.TextField(
         max_length=1000
     )
-    description_long = models.TextField(
+    description_long = tinymce_models.HTMLField(
         max_length=5000
     )
+
     lng = models.DecimalField(
         max_digits=17,
         decimal_places=13

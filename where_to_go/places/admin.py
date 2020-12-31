@@ -1,6 +1,7 @@
-from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
+from adminsortable2.admin import SortableInlineAdminMixin
 from django.contrib import admin
 from django.utils.html import format_html
+
 
 from places.models import Place, Photo
 
@@ -25,6 +26,7 @@ class PlaceAdmin(admin.ModelAdmin):
         'title',
         'description_short',
     ]
+
     fields = ['title', 'description_short', 'description_long', 'lng', 'lat']
     inlines = [PhotoInline]
 
