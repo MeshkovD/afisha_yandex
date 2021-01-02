@@ -1,12 +1,10 @@
-
-
-# Куда пойти?
-
 <p align="left">
 <img alt="GitHub repo size" src="https://img.shields.io/badge/Django-3.1.4-green">
 <img alt="GitHub repo size" src="https://img.shields.io/badge/Python-3.7.3-blue">
 <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/MeshkovD/afisha_yandex?color=lightgrey">
 </p>
+
+# Куда пойти?
 
 Проект на **Django** - карта с возможностью отмечать точки на ней. При клике на точку показывается дополнительная информация и катинки.
 
