@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'places',
     'adminsortable2',
     'tinymce',
+    'django_cleanup.apps.CleanupConfig',
 
 ]
 

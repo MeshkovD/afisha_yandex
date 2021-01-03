@@ -77,17 +77,44 @@ python3 manage.py runserver
 * Теперь вы можете перейти в раздел "Места" и добавить новое место.  
 >*Обратите внимание, что сортировку порядка показа фотографий можно регулировать перетаскивая фотографии мышкой.*
 
+**Обратите внимание на возможность загружать новые места с помощью django-admin команды ```load_place <json_url>```  
+В качестве аргумента команда принимает URL-адрес на страницу содержащую исключительно JSON**
+
+```bash
+python manage.py load_place https://roofs24.json
+```
+
+Страница должна содержать JSON вида:
+```
+{
+    "title": "Антикафе Bizone",
+    "imgs": [
+        "https://raw.githubusercontent.com/devmanorg/where-to-go-places/master/media/1f09226ae0edf23d20708b4fcc498ffd.jpg",
+        "https://raw.githubusercontent.com/devmanorg/where-to-go-places/master/media/6e1c15fd7723e04e73985486c441e061.jpg",
+        "https://raw.githubusercontent.com/devmanorg/where-to-go-places/master/media/be067a44fb19342c562e9ffd815c4215.jpg",
+        "https://Любой_URL_на_картинку.jpg"
+    ],
+    "description_short": "Настольные и компьютерные игр...",
+    "description_long": "Рядом со станцией метро «Вой...",
+    "coordinates": {
+        "lng": "37.50169",
+        "lat": "55.816591"
+    }
+}
+```
+
 
 ## Используемые библиотеки
 
 * [Django](https://www.djangoproject.com/) - веб-фреймворк Python высокого уровня, для быстрой разработки веб-приложений.
-* [Leaflet](https://leafletjs.com/) — отрисовка карты
-* [loglevel](https://www.npmjs.com/package/loglevel) для логгирования
-* [Bootstrap](https://getbootstrap.com/) — CSS библиотека
-* [Vue.js](https://ru.vuejs.org/) — реактивные шаблоны на фронтенде
+* [Leaflet](https://leafletjs.com/) - отрисовка карты
+* [loglevel](https://www.npmjs.com/package/loglevel) - для логгирования
+* [Bootstrap](https://getbootstrap.com/) - CSS библиотека
+* [Vue.js](https://ru.vuejs.org/) - реактивные шаблоны на фронтенде
 * [django-admin-sortable2](https://django-admin-sortable2.readthedocs.io) - упорядочивания перетаскиванием для сортировки объектов в виде списка в интерфейсе администратора Django.
 * [django-tinymce](https://django-tinymce.readthedocs.io/) - виджет для отображения поля формы в качестве редактора.
 * [python-dotenv](https://pypi.org/project/python-dotenv/) - чтение настроек из переменных окружения.
+* [django-cleanup](https://pypi.org/project/django-cleanup/) - автоматически удаляет файлы для FileField, ImageField при удалении модели.
 
 
 ## Цели проекта
