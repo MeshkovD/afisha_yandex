@@ -16,13 +16,16 @@ def add_photo_to_place_model(response):
             img_response = requests.get(photo_link)
             img_response.raise_for_status()
             filename = get_name(img_response.url)
-            place_obj, created  = Place.objects.get_or_create(title=response.json()['title'])
+            place_obj, created = Place.objects.get_or_create(
+                title=response.json()['title'])
             new_photo = Photo(place=place_obj)
-            new_photo.image.save(filename, ContentFile(img_response.content), save=True)
+            new_photo.image.save(filename,
+                                 ContentFile(img_response.content),
+                                 save=True)
 
         except requests.exceptions.HTTPError:
-            raise CommandError('Ссылка на картинку в переданном JSON может содержать ошибку, '
-                               'проверьте отправленную команду!')
+            raise CommandError('Ссылка на картинку в переданном JSON'
+            'может содержать ошибку, проверьте отправленную команду!')
 
 
 class Command(BaseCommand):
@@ -47,9 +50,13 @@ class Command(BaseCommand):
 
             if created:
                 add_photo_to_place_model(response)
-                self.stdout.write(self.style.SUCCESS(f'Successfully add place {response.json()["title"]}'))
+                self.stdout.write(self.style.SUCCESS(
+                    f'Successfully add place {response.json()["title"]}'))
             else:
-                self.stdout.write(self.style.SUCCESS(f'Not added. A place named  {response.json()["title"]} already exists'))
+                self.stdout.write(self.style.SUCCESS(
+                    f'Not added. A place named '
+                    f'{response.json()["title"]} already exists'))
 
         except requests.exceptions.HTTPError:
-            raise CommandError('Страница с JSON не найдена, проверьте отправленную команду!')
+            raise CommandError('Страница с JSON не найдена, '
+                               'проверьте отправленную команду!')

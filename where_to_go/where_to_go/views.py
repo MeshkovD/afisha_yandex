@@ -18,7 +18,10 @@ def index(request):
             "properties": {
                 "title": place.title,
                 "placeId": place.id,
-                "detailsUrl": reverse(get_object_in_json_for_id, kwargs={'id': place.id})
+                "detailsUrl": reverse(
+                    get_object_in_json_for_id,
+                    kwargs={'id': place.id}
+                )
             }
         }
         obj_list.append(obj)
@@ -48,4 +51,7 @@ def get_object_in_json_for_id(request, id):
             "lng": place.lng
         }
     }
-    return JsonResponse(obj,safe=False, json_dumps_params={'ensure_ascii': False, 'indent':4})
+    return JsonResponse(obj,
+                        safe=False,
+                        json_dumps_params={'ensure_ascii': False, 'indent': 4}
+                        )
