@@ -5,18 +5,25 @@ from tinymce import models as tinymce_models
 class Place(models.Model):
     title = models.CharField(
         max_length=200,
-        unique=True
+        unique=True,
+        verbose_name='Название'
     )
-    description_short = models.TextField()
-    description_long = tinymce_models.HTMLField()
+    description_short = models.TextField(
+        verbose_name = 'Короткое описание'
+    )
+    description_long = tinymce_models.HTMLField(
+       verbose_name = 'Полное описание'
+    )
 
     lng = models.DecimalField(
         max_digits=17,
-        decimal_places=13
+        decimal_places=13,
+        verbose_name='Широта'
     )
     lat = models.DecimalField(
         max_digits=17,
-        decimal_places=13
+        decimal_places=13,
+        verbose_name='Долгота'
     )
 
     def __str__(self):
