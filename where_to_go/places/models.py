@@ -7,12 +7,8 @@ class Place(models.Model):
         max_length=200,
         unique=True
     )
-    description_short = models.TextField(
-        max_length=1000
-    )
-    description_long = tinymce_models.HTMLField(
-        max_length=5000
-    )
+    description_short = models.TextField()
+    description_long = tinymce_models.HTMLField()
 
     lng = models.DecimalField(
         max_digits=17,
