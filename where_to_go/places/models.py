@@ -45,6 +45,7 @@ class Photo(models.Model):
     )
     place = models.ForeignKey(
         Place,
+        related_name='photo',
         default=0,
         on_delete=models.CASCADE,
         verbose_name='Место'
