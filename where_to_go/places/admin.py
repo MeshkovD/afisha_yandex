@@ -12,9 +12,8 @@ class PhotoInline(SortableInlineAdminMixin, admin.TabularInline):
     extra = 0
 
     def place_photo(self, obj):
-        return format_html('<img src="{url}" width="{width}" height={height}/>',
+        return format_html('<img src="{url}" height={height}/>',
                            url=obj.image.url,
-                           width='',
                            height=200,
                            )
 
