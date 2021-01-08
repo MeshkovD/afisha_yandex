@@ -38,7 +38,7 @@ def index(request):
 def get_object_in_json_for_id(request, id):
     place = get_object_or_404(Place, id=id)
     list_photos_urls = []
-    for photo in place.photo_set.all():
+    for photo in place.photo.all():
         url_of_photo = photo.image.url
         list_photos_urls.append(url_of_photo)
     obj = {
