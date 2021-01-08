@@ -9,10 +9,12 @@ class Place(models.Model):
         verbose_name='Название'
     )
     description_short = models.TextField(
-        verbose_name = 'Короткое описание'
+        verbose_name = 'Короткое описание',
+        blank=True
     )
     description_long = tinymce_models.HTMLField(
-       verbose_name = 'Полное описание'
+       verbose_name = 'Полное описание',
+        blank = True
     )
 
     lng = models.DecimalField(
