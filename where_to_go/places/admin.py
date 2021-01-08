@@ -22,10 +22,10 @@ class PhotoInline(SortableInlineAdminMixin, admin.TabularInline):
 class PlaceAdmin(admin.ModelAdmin):
     list_display = [
         'title',
-        'description_short',
+        'place_short_description',
     ]
 
-    fields = ['title', 'description_short', 'description_long', 'lng', 'lat']
+    fields = ['title', 'place_short_description', 'place_long_description', 'lng', 'lat']
     inlines = [PhotoInline]
 
 
