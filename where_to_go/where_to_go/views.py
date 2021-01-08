@@ -44,8 +44,8 @@ def get_object_in_json_for_id(request, id):
     obj = {
         "title": place.title,
         "imgs": list_photos_urls,
-        "description_short": place.description_short,
-        "description_long": place.description_long,
+        "description_short": place.place_short_description,
+        "description_long": place.place_long_description,
         "coordinates": {
             "lat": place.lat,
             "lng": place.lng
