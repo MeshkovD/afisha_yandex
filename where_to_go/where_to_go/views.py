@@ -19,7 +19,7 @@ def index(request):
                 "title": place.title,
                 "placeId": place.id,
                 "detailsUrl": reverse(
-                    get_object_in_json_for_id,
+                    get_detail_json_place,
                     kwargs={'id': place.id}
                 )
             }
@@ -35,13 +35,13 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-def get_object_in_json_for_id(request, id):
+def get_detail_json_place(request, id):
     place = get_object_or_404(Place, id=id)
     urls_photos = []
     for photo in place.photo.all():
         url_photo = photo.image.url
         urls_photos.append(url_photo)
-    obj = {
+    detail_json_place = {
         "title": place.title,
         "imgs": urls_photos,
         "description_short": place.place_short_description,
@@ -51,7 +51,7 @@ def get_object_in_json_for_id(request, id):
             "lng": place.lng
         }
     }
-    return JsonResponse(obj,
+    return JsonResponse(detail_json_place,
                         safe=False,
                         json_dumps_params={'ensure_ascii': False, 'indent': 4}
                         )
