@@ -7,9 +7,9 @@ from places.models import Place
 
 def index(request):
     places = Place.objects.all()
-    obj_list = []
+    json_places = []
     for place in places:
-        obj = {
+        json_place = {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
@@ -24,14 +24,14 @@ def index(request):
                 )
             }
         }
-        obj_list.append(obj)
+        json_places.append(json_place)
 
-    list_of_all_places = {
+    geo_json_places = {
       "type": "FeatureCollection",
-      "features": obj_list
+      "features": json_places
     }
 
-    context = {'list_of_all_places': list_of_all_places}
+    context = {'geo_json_places': geo_json_places}
     return render(request, 'index.html', context)
 
 
