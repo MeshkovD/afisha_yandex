@@ -10,13 +10,13 @@ class PhotoInline(SortableInlineAdminMixin, admin.TabularInline):
     fields = ['image', 'place_photo', 'order']
     readonly_fields = ['place_photo']
     extra = 0
+    empty_value_display = 'Здесь будет превью, когда вы выберете файл'
 
     def place_photo(self, obj):
-        return format_html('<img src="{url}" height={height}/>',
+        return format_html('<img src="{url}" height={height}"/>',
                            url=obj.image.url,
                            height=200,
                            )
-
 
 class PlaceAdmin(admin.ModelAdmin):
     list_display = [
@@ -39,6 +39,7 @@ class PhotoAdmin(admin.ModelAdmin):
     fields = ['image', 'place', 'order', 'place_photo']
     ordering = ['place', 'order']
     readonly_fields = ['place_photo']
+    empty_value_display = 'Здесь будет превью, когда вы выберете файл'
 
     def place_photo(self, obj):
         return format_html('<img src="{url}" width="{width}" height={height}/>',
