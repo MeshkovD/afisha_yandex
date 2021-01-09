@@ -26,6 +26,9 @@ class PlaceAdmin(admin.ModelAdmin):
 
     fields = ['title', 'place_short_description', 'place_long_description', 'lng', 'lat']
     inlines = [PhotoInline]
+    list_per_page = 25
+    search_fields = ['title']
+
 
 
 admin.site.register(Place, PlaceAdmin)
@@ -37,6 +40,7 @@ class PhotoAdmin(admin.ModelAdmin):
         'place_photo',
     ]
     fields = ['image', 'place', 'order', 'place_photo']
+    raw_id_fields = ["place"]
     ordering = ['place', 'order']
     readonly_fields = ['place_photo']
     empty_value_display = 'Здесь будет превью, когда вы выберете файл'
