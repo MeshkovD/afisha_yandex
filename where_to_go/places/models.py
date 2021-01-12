@@ -20,12 +20,12 @@ class Place(models.Model):
 
     lng = models.DecimalField(
         max_digits=17,
-        decimal_places=13,
+        decimal_places=15,
         verbose_name='Широта'
     )
     lat = models.DecimalField(
         max_digits=17,
-        decimal_places=13,
+        decimal_places=15,
         verbose_name='Долгота'
     )
 
