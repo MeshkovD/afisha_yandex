@@ -8,12 +8,12 @@ class Place(models.Model):
         unique=True,
         verbose_name='Название'
     )
-    place_short_description = models.TextField(
+    short_description = models.TextField(
         verbose_name='Короткое описание',
         blank=True
     )
 
-    place_long_description = tinymce_models.HTMLField(
+    long_description = tinymce_models.HTMLField(
         verbose_name='Полное описание',
         blank=True
     )

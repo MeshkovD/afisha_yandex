@@ -21,10 +21,10 @@ class PhotoInline(SortableInlineAdminMixin, admin.TabularInline):
 class PlaceAdmin(admin.ModelAdmin):
     list_display = [
         'title',
-        'place_short_description',
+        'short_description',
     ]
 
-    fields = ['title', 'place_short_description', 'place_long_description', 'lng', 'lat']
+    fields = ['title', 'short_description', 'long_description', 'lng', 'lat']
     inlines = [PhotoInline]
     list_per_page = 25
     search_fields = ['title']

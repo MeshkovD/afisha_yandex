@@ -44,8 +44,8 @@ def get_detail_json_place(request, id):
     detail_json_place = {
         "title": place.title,
         "imgs": urls_photos,
-        "description_short": place.place_short_description,
-        "description_long": place.place_long_description,
+        "description_short": place.short_description,
+        "description_long": place.long_description,
         "coordinates": {
             "lat": place.lat,
             "lng": place.lng
