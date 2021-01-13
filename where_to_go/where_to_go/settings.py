@@ -10,11 +10,22 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
+import environ
+
 from pathlib import Path
 
 from dotenv import load_dotenv
+
+
 load_dotenv()
 
+
+env = environ.Env(
+    SECRET_KEY=(str, 'This_is_a_temporary_secret_key._Needs_to_be_replaced.'),
+    DEBUG=(bool, False),
+    ALLOWED_HOSTS=(list, ['127.0.0.1', 'localhost'])
+)
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,15 +35,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'This_is_a_temporary_secret_key._Needs_to_be_replaced.'
+SECRET_KEY = env('SECRET_KEY')
 # SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 # DEBUG = (os.getenv('DEBUG').upper() != 'FALSE')
 
-ALLOWED_HOSTS = ['127.0.0.1']
-# ALLOWED_HOSTS = [os.getenv('ALLOWED_HOSTS')]
+ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
 
 # Application definition
