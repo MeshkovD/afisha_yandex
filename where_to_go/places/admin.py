@@ -13,7 +13,7 @@ class PhotoInline(SortableInlineAdminMixin, admin.TabularInline):
     empty_value_display = 'Здесь будет превью, когда вы выберете файл'
 
     def place_photo(self, obj):
-        return format_html('<img src="{url}" height={height}"/>',
+        return format_html('<img src="{url}" height={height}/>',
                            url=obj.image.url,
                            height=200,
                            )
