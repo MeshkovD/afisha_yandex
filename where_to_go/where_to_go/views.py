@@ -37,10 +37,7 @@ def index(request):
 
 def get_detail_json_place(request, id):
     place = get_object_or_404(Place, id=id)
-    urls_photos = []
-    for photo in place.photos.all():
-        url_photo = photo.image.url
-        urls_photos.append(url_photo)
+    urls_photos = [photo.image.url for photo in place.photos.all()]
     detail_json_place = {
         "title": place.title,
         "imgs": urls_photos,
