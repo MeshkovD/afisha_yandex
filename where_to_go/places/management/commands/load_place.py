@@ -1,6 +1,7 @@
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand, CommandError
 import requests
+from django.db.models import Q
 
 from places.models import Place, Photo
 
@@ -37,16 +38,17 @@ class Command(BaseCommand):
         json_url = f'{options["json_url"]}'
 
         try:
-
             response = requests.get(json_url)
             response.raise_for_status()
             json_responce = response.json()
             place, created = Place.objects.get_or_create(
                 title=json_responce['title'],
-                short_description=json_responce['description_short'],
-                long_description=json_responce['description_long'],
-                lng=json_responce['coordinates']['lng'],
-                lat=json_responce['coordinates']['lat'],
+                defaults={
+                    'short_description': json_responce['description_short'],
+                    'long_description': json_responce['description_long'],
+                    'lng': json_responce['coordinates']['lng'],
+                    'lat': json_responce['coordinates']['lat'],
+                }
             )
 
             if created:
