@@ -11,14 +11,14 @@ def get_name(image_url):
     return image_url.split('/')[-1]
 
 def add_photo_to_place_model(response):
-    json_responce = response.json()
-    for photo_link in json_responce['imgs']:
+    json_response = response.json()
+    for photo_link in json_response['imgs']:
         try:
             img_response = requests.get(photo_link)
             img_response.raise_for_status()
             filename = get_name(img_response.url)
             place_obj, created = Place.objects.get_or_create(
-                title=json_responce['title'])
+                title=json_response['title'])
             new_photo = Photo(place=place_obj)
             new_photo.image.save(filename,
                                  ContentFile(img_response.content),
@@ -40,25 +40,25 @@ class Command(BaseCommand):
         try:
             response = requests.get(json_url)
             response.raise_for_status()
-            json_responce = response.json()
+            json_response = response.json()
             place, created = Place.objects.get_or_create(
-                title=json_responce['title'],
+                title=json_response['title'],
                 defaults={
-                    'short_description': json_responce['description_short'],
-                    'long_description': json_responce['description_long'],
-                    'lng': json_responce['coordinates']['lng'],
-                    'lat': json_responce['coordinates']['lat'],
+                    'short_description': json_response['description_short'],
+                    'long_description': json_response['description_long'],
+                    'lng': json_response['coordinates']['lng'],
+                    'lat': json_response['coordinates']['lat'],
                 }
             )
 
             if created:
                 add_photo_to_place_model(response)
                 self.stdout.write(self.style.SUCCESS(
-                    f'Successfully add place {json_responce["title"]}'))
+                    f'Successfully add place {json_response["title"]}'))
             else:
                 self.stdout.write(self.style.SUCCESS(
                     f'Not added. A place named '
-                    f'{json_responce["title"]} already exists'))
+                    f'{json_response["title"]} already exists'))
 
         except requests.exceptions.HTTPError:
             raise CommandError('Страница с JSON не найдена, '
