@@ -35,7 +35,7 @@ class Command(BaseCommand):
         parser.add_argument('json_url')
 
     def handle(self, *args, **options):
-        json_url = f'{options["json_url"]}'
+        json_url = options["json_url"]
 
         try:
             response = requests.get(json_url)
