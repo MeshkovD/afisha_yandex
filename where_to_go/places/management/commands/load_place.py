@@ -10,16 +10,14 @@ def get_name(image_url):
     '''Генерирует имя картинки по переданному url'''
     return image_url.split('/')[-1]
 
-def add_photo_to_place_model(response):
+def add_photo_to_place_model(response, place):
     json_response = response.json()
     for photo_link in json_response['imgs']:
         try:
             img_response = requests.get(photo_link)
             img_response.raise_for_status()
             filename = get_name(img_response.url)
-            place_obj, created = Place.objects.get_or_create(
-                title=json_response['title'])
-            new_photo = Photo(place=place_obj)
+            new_photo = Photo(place=place)
             new_photo.image.save(filename,
                                  ContentFile(img_response.content),
                                  save=True)
@@ -52,7 +50,7 @@ class Command(BaseCommand):
             )
 
             if created:
-                add_photo_to_place_model(response)
+                add_photo_to_place_model(response, place)
                 self.stdout.write(self.style.SUCCESS(
                     f'Successfully add place {json_response["title"]}'))
             else:
