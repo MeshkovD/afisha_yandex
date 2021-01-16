@@ -7,9 +7,9 @@ from places.models import Place
 
 def index(request):
     places = Place.objects.all()
-    json_places = []
+    raw_places = []
     for place in places:
-        json_place = {
+        raw_place = {
             "type": "Feature",
             "geometry": {
                 "type": "Point",
@@ -19,26 +19,26 @@ def index(request):
                 "title": place.title,
                 "placeId": place.id,
                 "detailsUrl": reverse(
-                    get_detail_json_place,
+                    get_detail_raw_place,
                     kwargs={'id': place.id}
                 )
             }
         }
-        json_places.append(json_place)
+        raw_places.append(raw_place)
 
-    geo_json_places = {
+    response_payload = {
       "type": "FeatureCollection",
-      "features": json_places
+      "features": raw_places
     }
 
-    context = {'geo_json_places': geo_json_places}
+    context = {'response_payload': response_payload}
     return render(request, 'index.html', context)
 
 
-def get_detail_json_place(request, id):
+def get_detail_raw_place(request, id):
     place = get_object_or_404(Place, id=id)
     urls_photos = [photo.image.url for photo in place.photos.all()]
-    detail_json_place = {
+    detail_raw_place = {
         "title": place.title,
         "imgs": urls_photos,
         "description_short": place.short_description,
@@ -48,7 +48,7 @@ def get_detail_json_place(request, id):
             "lng": place.lng
         }
     }
-    return JsonResponse(detail_json_place,
+    return JsonResponse(detail_raw_place,
                         safe=False,
                         json_dumps_params={'ensure_ascii': False, 'indent': 4}
                         )

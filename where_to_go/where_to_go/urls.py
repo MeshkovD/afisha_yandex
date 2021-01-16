@@ -18,11 +18,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from .views import index, get_detail_json_place
+from .views import index, get_detail_raw_place
 
 urlpatterns = [
     path('', index, name='index'),
-    path('places/<int:id>/', get_detail_json_place),
+    path('places/<int:id>/', get_detail_raw_place),
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
 
