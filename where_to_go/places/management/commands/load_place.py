@@ -16,15 +16,15 @@ def add_photo_to_place_model(response, place):
         try:
             img_response = requests.get(photo_link)
             img_response.raise_for_status()
-            filename = get_name(img_response.url)
-            new_photo = Photo(place=place)
-            new_photo.image.save(filename,
-                                 ContentFile(img_response.content),
-                                 save=True)
-
         except requests.exceptions.HTTPError:
             raise CommandError('Ссылка на картинку в переданном JSON'
-            'может содержать ошибку, проверьте отправленную команду!')
+                               'может содержать ошибку, проверьте отправленную команду!')
+        filename = get_name(img_response.url)
+        new_photo = Photo(place=place)
+        new_photo.image.save(filename,
+                             ContentFile(img_response.content),
+                             save=True)
+
 
 
 class Command(BaseCommand):
