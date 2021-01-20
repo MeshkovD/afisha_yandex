@@ -1,21 +1,8 @@
-from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand, CommandError
 import requests
 
 
-from places.models import Place, Photo
-
-
-def get_name(image_url):
-    '''Генерирует имя картинки по переданному url'''
-    return image_url.split('/')[-1]
-
-def add_photo_to_place_model(img_response, place):
-    filename = get_name(img_response.url)
-    new_photo = Photo(place=place)
-    new_photo.image.save(filename,
-                         ContentFile(img_response.content),
-                         save=True)
+from places.models import Place
 
 
 class Command(BaseCommand):
@@ -52,8 +39,7 @@ class Command(BaseCommand):
                 except requests.exceptions.HTTPError:
                     raise CommandError('Картинка не добавлена, '
                                        'ссылка может содержать ошибку!')
-                add_photo_to_place_model(img_response, place)
-
+                place.add_photo(img_response, place)
 
             self.stdout.write(self.style.SUCCESS(
                 f'Successfully add place {place_raw["title"]}'))

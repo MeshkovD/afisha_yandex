@@ -1,3 +1,4 @@
+from django.core.files.base import ContentFile
 from django.db import models
 from tinymce import models as tinymce_models
 
@@ -28,6 +29,13 @@ class Place(models.Model):
         decimal_places=15,
         verbose_name='Долгота'
     )
+
+    def add_photo(self, img_response, place):
+        filename = img_response.url.split('/')[-1]
+        new_photo = Photo(place=place)
+        new_photo.image.save(filename,
+                             ContentFile(img_response.content),
+                             save=True)
 
     def __str__(self):
         return self.title
