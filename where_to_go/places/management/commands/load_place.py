@@ -48,8 +48,8 @@ class Command(BaseCommand):
                         print(photo_link)
                         img_response.raise_for_status()
                     except requests.exceptions.HTTPError:
-                        raise CommandError('Ссылка на картинку в переданном JSON'
-                                           'может содержать ошибку, проверьте отправленную команду!')
+                        raise CommandError('Картинка не добавлена, '
+                                           'ссылка может содержать ошибку!')
                     add_photo_to_place_model(img_response, place)
 
 
