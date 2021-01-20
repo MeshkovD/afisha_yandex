@@ -1,7 +1,7 @@
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand, CommandError
 import requests
-from django.db.models import Q
+
 
 from places.models import Place, Photo
 
