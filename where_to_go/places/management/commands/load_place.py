@@ -10,21 +10,12 @@ def get_name(image_url):
     '''Генерирует имя картинки по переданному url'''
     return image_url.split('/')[-1]
 
-def add_photo_to_place_model(response, place):
-    place_raw = response.json()
-    for photo_link in place_raw['imgs']:
-        try:
-            img_response = requests.get(photo_link)
-            img_response.raise_for_status()
-        except requests.exceptions.HTTPError:
-            raise CommandError('Ссылка на картинку в переданном JSON'
-                               'может содержать ошибку, проверьте отправленную команду!')
-        filename = get_name(img_response.url)
-        new_photo = Photo(place=place)
-        new_photo.image.save(filename,
-                             ContentFile(img_response.content),
-                             save=True)
-
+def add_photo_to_place_model(img_response, place):
+    filename = get_name(img_response.url)
+    new_photo = Photo(place=place)
+    new_photo.image.save(filename,
+                         ContentFile(img_response.content),
+                         save=True)
 
 
 class Command(BaseCommand):
@@ -50,7 +41,18 @@ class Command(BaseCommand):
             )
 
             if created:
-                add_photo_to_place_model(response, place)
+                photos_links = place_raw['imgs']
+                for photo_link in photos_links:
+                    try:
+                        img_response = requests.get(photo_link)
+                        print(photo_link)
+                        img_response.raise_for_status()
+                    except requests.exceptions.HTTPError:
+                        raise CommandError('Ссылка на картинку в переданном JSON'
+                                           'может содержать ошибку, проверьте отправленную команду!')
+                    add_photo_to_place_model(img_response, place)
+
+
                 self.stdout.write(self.style.SUCCESS(
                     f'Successfully add place {place_raw["title"]}'))
             else:
